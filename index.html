@@ -9,9 +9,30 @@
     
 </head>
 <body>
+    <header>
+        <h1>Gatsby.js Quiz</h1>
+        <p>A 7-question multiple-choice quiz to test you on the basics of this trendy new JS thing called 'Gatsby'.</p>
+    </header>
 
-    <h1>Gatsby.js Quiz</h1>
-    <p>A 7-question multiple-choice quiz to test you on the basics of this trendy new JS thing called 'Gatsby'.</p>
+    <main>
+        <h3>Ready?</h3>
+        <button>Start Quiz</button>
+    </main>
+
+    <form action="">
+        <fieldset>
+            <legend>Question 1: What is Gatsby.js?</legend>
+            <label>
+                <input type="radio" value="a static site generator" name="answer" required>
+                <span>a static site generator</span>
+            </label>
+            <label>
+                <input type="radio" value="a framework" name="answer" required>
+                <span>a framework</span>
+            </label>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
