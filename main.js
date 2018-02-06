@@ -66,9 +66,13 @@ const quizQuestions = [
     }
 ]
 
-function starQuizClicked() {
+function startQuizClicked() {
     //when 'start quiz' is clicked,
-    //run another function to get first question 
+    //run another function to get first question
+    $('.js-start-quiz').on('click', function () {
+        event.preventDefault();
+        console.log('Starting quiz...');
+    });
 }
 
 function createQuestion(index) {
@@ -88,6 +92,7 @@ function nextQuestionClicked() {
 
 function init() {
     //call all functions on browser load.
+    startQuizClicked();
     console.log(quizQuestions[0].options[3][1]);
 }
 
