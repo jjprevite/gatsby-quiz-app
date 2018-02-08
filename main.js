@@ -72,11 +72,40 @@ function startQuizClicked() {
     $('.js-start-quiz').on('click', function () {
         event.preventDefault();
         console.log('Starting quiz...');
+        $('.js-main').empty();
+        loadQuestion(1);
     });
 }
 
-function createQuestion(index) {
-    //generate the html for the question
+function generateQuestionElement(index) {
+    let questionNum = index - 1;
+    console.log('generating question...');
+    return `
+        <fieldset>
+            <legend>Question ${questionNum+1}: ${quizQuestions[questionNum].question}</legend>
+            <label>
+                <input type="radio" value="${quizQuestions[questionNum].options[0][0]}" name="answer" required>
+                <span>${quizQuestions[questionNum].options[0][0]}</span>
+            </label>
+            <label>
+                <input type="radio" value="${quizQuestions[questionNum].options[1][0]}" name="answer" required>
+                <span>${quizQuestions[questionNum].options[1][0]}</span>
+            </label>
+            <label>
+                <input type="radio" value="${quizQuestions[questionNum].options[2][0]}" name="answer" required>
+                <span>${quizQuestions[questionNum].options[2][0]}</span>
+            </label>
+            <label>
+                <input type="radio" value="${quizQuestions[questionNum].options[3][0]}" name="answer" required>
+                <span>${quizQuestions[questionNum].options[3][0]}</span>
+            </label>
+            <button type="submit">Submit</button>
+        </fieldset>`;
+}
+
+function loadQuestion(questionCount) {
+    console.log('Loading question...');
+    $('.js-form').append(generateQuestionElement(questionCount));
 }
 
 function handleAnswerSubmitted() {
