@@ -74,6 +74,7 @@ function startQuizClicked() {
         console.log('Starting quiz...');
         $('.js-main').empty();
         loadQuestion(1);
+        handleAnswerSubmitted();
     });
 }
 
@@ -99,7 +100,7 @@ function generateQuestionElement(index) {
                 <input type="radio" value="${quizQuestions[questionNum].options[3][0]}" name="answer" required>
                 <span>${quizQuestions[questionNum].options[3][0]}</span>
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit" class="js-submit-question">Submit</button>
         </fieldset>`;
 }
 
@@ -109,10 +110,20 @@ function loadQuestion(questionCount) {
 }
 
 function handleAnswerSubmitted() {
-    //check answer using index...
-    //if it's right, display one thing
-    //if it's wrong, display another thing
+    $('.js-form').on('click', '.js-submit-question', function () {
+        event.preventDefault();
+        console.log('question answer submitted..');
+        let answer = $("input[name='answer']:checked").val();
+        console.log(answer);
+    });
+    //3. check it based on questionCount
+    //4. if it's right, display something
+    //5. if it's wrong, display another thing
 }
+
+function checkQuestionAnswer(
+    //write this cool function
+);
 
 function nextQuestionClicked() {
     // get next question
