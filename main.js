@@ -121,9 +121,11 @@ function handleAnswerSubmitted() {
     //5. if it's wrong, display another thing
 }
 
-function checkQuestionAnswer(
+function checkQuestionAnswer() {
     //write this cool function
-);
+}
+    
+
 
 function nextQuestionClicked() {
     // get next question
