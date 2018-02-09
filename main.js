@@ -39,17 +39,31 @@ const quizQuestions = [
 ]
 
 let questionCount = 1;
+let scoreCount = 0;
 
 function startQuizClicked() {
     //when 'start quiz' is clicked,
     //run another function to get first question
     $('.js-start-quiz').on('click', function () {
         event.preventDefault();
+        renderScoreCounter();
         // console.log('Starting quiz...');
         $('.js-main').empty();
         loadQuestion(questionCount);
         handleAnswerSubmitted();
     });
+}
+
+function renderScoreCounter() {
+    if (questionCount === 1) {
+        $('.js-header').find('p').remove();
+    }
+    $('.js-header').find('ul').remove();
+    $('.js-header').append(`
+        <ul>
+            <li>Score: ${scoreCount}</li>
+            <li>Question: ${questionCount}/7</li>
+        </ul>`);
 }
 
 function generateQuestionElement(questionCount) {
@@ -89,6 +103,7 @@ function handleAnswerSubmitted() {
         let selectedAnswer = $("input[name='answer']:checked").val();
         console.log('You selected "' + selectedAnswer + '"');
         checkQuestionAnswer(selectedAnswer);
+        renderScoreCounter();
     });
 }
 
@@ -108,6 +123,7 @@ function displayCorrectAnswer(isCorrect, correctAnswer) {
     $('.js-main').empty();
     if(isCorrect) {
         $('.js-main').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
+        scoreCount++;
     } else {
         $('.js-main').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
     }
@@ -132,3 +148,8 @@ function init() {
 }
 
 $(init());
+
+//TODO
+//1. display score throughout
+//2. after last question, show message with final score
+//3. add reset button
