@@ -38,18 +38,14 @@ const quizQuestions = [
     }
 ]
 
-const questionCount = 1;
-
-function incrementQuestionCount() {
-    return questionCount++;
-}
+let questionCount = 1;
 
 function startQuizClicked() {
     //when 'start quiz' is clicked,
     //run another function to get first question
     $('.js-start-quiz').on('click', function () {
         event.preventDefault();
-        console.log('Starting quiz...');
+        // console.log('Starting quiz...');
         $('.js-main').empty();
         loadQuestion(questionCount);
         handleAnswerSubmitted();
@@ -58,7 +54,7 @@ function startQuizClicked() {
 
 function generateQuestionElement(questionCount) {
     let questionArrNum = questionCount - 1;
-    console.log('generating question...');
+    // console.log('generating question...');
     return `
         <fieldset>
             <legend>Question ${questionCount}: ${quizQuestions[questionArrNum].question}</legend>
@@ -83,56 +79,56 @@ function generateQuestionElement(questionCount) {
 }
 
 function loadQuestion(questionCount) {
-    console.log('Loading question...');
+    // console.log('Loading question...');
     $('.js-form').append(generateQuestionElement(questionCount));
 }
 
 function handleAnswerSubmitted() {
     $('.js-form').on('click', '.js-submit-question', function () {
         event.preventDefault();
-        console.log('question answer submitted..');
-        let answer = $("input[name='answer']:checked").val();
-        console.log(answer);
-        checkQuestionAnswer(answer);
+        let selectedAnswer = $("input[name='answer']:checked").val();
+        console.log('You selected "' + selectedAnswer + '"');
+        checkQuestionAnswer(selectedAnswer);
     });
-    //3. check it based on questionCount
-    //4. if it's right, display something
-    //5. if it's wrong, display another thing
+}
+
+function checkQuestionAnswer(givenAnswer) {
+    const questionArrNum = questionCount - 1;
+    const correctAnswer = quizQuestions[questionArrNum].answer;
+    if (givenAnswer === correctAnswer) {
+        displayCorrectAnswer(true);
+    } else {
+        displayCorrectAnswer(false, correctAnswer);
+    }
 }
 
 function displayCorrectAnswer(isCorrect, correctAnswer) {
     //empty question
     $('.js-form').empty();
+    $('.js-main').empty();
     if(isCorrect) {
         $('.js-main').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
     } else {
         $('.js-main').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
     }
-}
-
-function checkQuestionAnswer(givenAnswer) {
-    //V fix that so it's not hard coded...
-    const questionArrNum = questionCount - 1;
-    const correctAnswer = quizQuestions[questionArrNum].answer;
-    if(givenAnswer === correctAnswer) {
-        displayCorrectAnswer(true);
-    } else {
-        console.log('wrong answer :(');
-        displayCorrectAnswer(false, correctAnswer);
-    }
+    $('.js-main').append('<button type="submit" class="js-next-question">Next question</button>');
 }
     
-
-
 function nextQuestionClicked() {
-    // get next question
+    $('.js-main').on('click', '.js-next-question', function () {
+        event.preventDefault();
+        // console.log('Getting next question...');
+        questionCount++;
+        $('.js-main').empty();
+        loadQuestion(questionCount);
+    });
 }
 
 
 function init() {
     //call all functions on browser load.
     startQuizClicked();
-    console.log(quizQuestions[0].options[3][1]);
+    nextQuestionClicked();
 }
 
 $(init());
