@@ -118,7 +118,6 @@ function checkQuestionAnswer(givenAnswer) {
 }
 
 function displayCorrectAnswer(isCorrect, correctAnswer) {
-    //empty question
     $('.js-form').empty();
     $('.js-main').empty();
     if(isCorrect) {
@@ -127,7 +126,12 @@ function displayCorrectAnswer(isCorrect, correctAnswer) {
     } else {
         $('.js-main').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
     }
-    $('.js-main').append('<button type="submit" class="js-next-question">Next question</button>');
+
+    if(questionCount !== 7){
+        $('.js-main').append('<button type="submit" class="js-next-question">Next question</button>');
+    } else {
+        showFinalResults();
+    }
 }
     
 function nextQuestionClicked() {
@@ -140,6 +144,32 @@ function nextQuestionClicked() {
     });
 }
 
+function showFinalResults() {
+    let message = '';
+    if (scoreCount === 7) {
+        message = 'WOAH! You knew about Gatsby before this, didn\'t you? Nice work my friend :)';
+    } else if (scoreCount >= 5) {
+        message = 'Hey! You\'re pretty good! :)';
+    } else if (scoreCount >= 3 && scoreCount < 5) {
+        message = 'Decent score, I bet you could do better ;)';
+    } else if (scoreCount <= 2) {
+        message = 'Not bad champ! Try taking the quiz again and seeing how you do!';
+    }
+    $('.js-main').append(`
+        <h2>You did it! You completed the quiz with a final score of ${scoreCount}</h2>
+        <p>${message}</p>
+        <button type='submit' class='js-reset-button'>Reset button</button>
+    `)
+    resetQuiz();
+}
+
+function resetQuiz() {
+    $('.js-main').on('click', '.js-reset-button', function () {
+        questionCount = 0;
+        scoreCount = 0;
+        //TODO fix this...
+    });
+}
 
 function init() {
     //call all functions on browser load.
@@ -148,8 +178,3 @@ function init() {
 }
 
 $(init());
-
-//TODO
-//1. display score throughout
-//2. after last question, show message with final score
-//3. add reset button
