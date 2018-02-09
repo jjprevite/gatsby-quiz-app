@@ -38,6 +38,12 @@ const quizQuestions = [
     }
 ]
 
+const questionCount = 1;
+
+function incrementQuestionCount() {
+    return questionCount++;
+}
+
 function startQuizClicked() {
     //when 'start quiz' is clicked,
     //run another function to get first question
@@ -45,32 +51,32 @@ function startQuizClicked() {
         event.preventDefault();
         console.log('Starting quiz...');
         $('.js-main').empty();
-        loadQuestion(1);
+        loadQuestion(questionCount);
         handleAnswerSubmitted();
     });
 }
 
-function generateQuestionElement(index) {
-    let questionNum = index - 1;
+function generateQuestionElement(questionCount) {
+    let questionArrNum = questionCount - 1;
     console.log('generating question...');
     return `
         <fieldset>
-            <legend>Question ${questionNum+1}: ${quizQuestions[questionNum].question}</legend>
+            <legend>Question ${questionCount}: ${quizQuestions[questionArrNum].question}</legend>
             <label>
-                <input type="radio" value="${quizQuestions[questionNum].options[0]}" name="answer" required>
-                <span>${quizQuestions[questionNum].options[0]}</span>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[0]}" name="answer" required>
+                <span>${quizQuestions[questionArrNum].options[0]}</span>
             </label>
             <label>
-                <input type="radio" value="${quizQuestions[questionNum].options[1]}" name="answer" required>
-                <span>${quizQuestions[questionNum].options[1]}</span>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[1]}" name="answer" required>
+                <span>${quizQuestions[questionArrNum].options[1]}</span>
             </label>
             <label>
-                <input type="radio" value="${quizQuestions[questionNum].options[2]}" name="answer" required>
-                <span>${quizQuestions[questionNum].options[2]}</span>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[2]}" name="answer" required>
+                <span>${quizQuestions[questionArrNum].options[2]}</span>
             </label>
             <label>
-                <input type="radio" value="${quizQuestions[questionNum].options[3]}" name="answer" required>
-                <span>${quizQuestions[questionNum].options[3]}</span>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[3]}" name="answer" required>
+                <span>${quizQuestions[questionArrNum].options[3]}</span>
             </label>
             <button type="submit" class="js-submit-question">Submit</button>
         </fieldset>`;
@@ -94,13 +100,25 @@ function handleAnswerSubmitted() {
     //5. if it's wrong, display another thing
 }
 
-function checkQuestionAnswer(answer) {
+function displayCorrectAnswer(isCorrect, correctAnswer) {
+    //empty question
+    $('.js-form').empty();
+    if(isCorrect) {
+        $('.js-main').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
+    } else {
+        $('.js-main').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
+    }
+}
+
+function checkQuestionAnswer(givenAnswer) {
     //V fix that so it's not hard coded...
-    const questionArrNum = 0;
-    if(answer == quizQuestions[questionArrNum].answer) {
-        console.log('correct answer!');
+    const questionArrNum = questionCount - 1;
+    const correctAnswer = quizQuestions[questionArrNum].answer;
+    if(givenAnswer === correctAnswer) {
+        displayCorrectAnswer(true);
     } else {
         console.log('wrong answer :(');
+        displayCorrectAnswer(false, correctAnswer);
     }
 }
     
