@@ -41,16 +41,20 @@ const quizQuestions = [
 let questionCount = 1;
 let scoreCount = 0;
 
-function startQuizClicked() {
+function getQuizReady() {
+    renderScoreCounter();
+    // console.log('Starting quiz...');
+    $('.js-main').empty();
+    loadQuestion(questionCount);
+}
+
+function startQuiz() {
     //when 'start quiz' is clicked,
     //run another function to get first question
     $('.js-start-quiz').on('click', function () {
         event.preventDefault();
-        renderScoreCounter();
-        // console.log('Starting quiz...');
-        $('.js-main').empty();
-        loadQuestion(questionCount);
         handleAnswerSubmitted();
+        getQuizReady();
     });
 }
 
@@ -165,15 +169,16 @@ function showFinalResults() {
 
 function resetQuiz() {
     $('.js-main').on('click', '.js-reset-button', function () {
-        questionCount = 0;
+        questionCount = 1;
         scoreCount = 0;
-        //TODO fix this...
+        event.preventDefault;
+        getQuizReady();
     });
 }
 
 function init() {
     //call all functions on browser load.
-    startQuizClicked();
+    startQuiz();
     nextQuestionClicked();
 }
 
