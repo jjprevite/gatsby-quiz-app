@@ -43,7 +43,6 @@ let scoreCount = 0;
 
 function getQuizReady() {
     renderScoreCounter();
-    // console.log('Starting quiz...');
     $('.js-main').empty();
     loadQuestion(questionCount);
 }
@@ -72,24 +71,23 @@ function renderScoreCounter() {
 
 function generateQuestionElement(questionCount) {
     let questionArrNum = questionCount - 1;
-    // console.log('generating question...');
     return `
-        <fieldset>
+        <fieldset role='radiogroup'>
             <legend>Question ${questionCount}: ${quizQuestions[questionArrNum].question}</legend>
-            <label for="answer">
-                <input type="radio" value="${quizQuestions[questionArrNum].options[0]}" name="answer" required>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[0]}" name='answer' required>
                 <span>${quizQuestions[questionArrNum].options[0]}</span>
             </label>
-            <label for="answer">
-                <input type="radio" value="${quizQuestions[questionArrNum].options[1]}" name="answer" required>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[1]}" name='answer' required>
                 <span>${quizQuestions[questionArrNum].options[1]}</span>
             </label>
-            <label for="answer">
-                <input type="radio" value="${quizQuestions[questionArrNum].options[2]}" name="answer" required>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[2]}" name='answer' required>
                 <span>${quizQuestions[questionArrNum].options[2]}</span>
             </label>
-            <label for="answer">
-                <input type="radio" value="${quizQuestions[questionArrNum].options[3]}" name="answer" required>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[3]}" name='answer' required>
                 <span>${quizQuestions[questionArrNum].options[3]}</span>
             </label>
             <button type="submit" class="js-submit-question">Submit</button>
@@ -97,7 +95,6 @@ function generateQuestionElement(questionCount) {
 }
 
 function loadQuestion(questionCount) {
-    // console.log('Loading question...');
     $('.js-form').append(generateQuestionElement(questionCount));
 }
 
@@ -105,7 +102,6 @@ function handleAnswerSubmitted() {
     $('.js-form').on('click', '.js-submit-question', function () {
         event.preventDefault();
         let selectedAnswer = $("input[name='answer']:checked").val();
-        console.log('You selected "' + selectedAnswer + '"');
         checkQuestionAnswer(selectedAnswer);
         renderScoreCounter();
     });
@@ -141,7 +137,6 @@ function displayCorrectAnswer(isCorrect, correctAnswer) {
 function nextQuestionClicked() {
     $('.js-main').on('click', '.js-next-question', function () {
         event.preventDefault();
-        // console.log('Getting next question...');
         questionCount++;
         $('.js-main').empty();
         loadQuestion(questionCount);
