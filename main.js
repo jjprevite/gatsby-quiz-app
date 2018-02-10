@@ -76,19 +76,19 @@ function generateQuestionElement(questionCount) {
     return `
         <fieldset>
             <legend>Question ${questionCount}: ${quizQuestions[questionArrNum].question}</legend>
-            <label>
+            <label for="answer">
                 <input type="radio" value="${quizQuestions[questionArrNum].options[0]}" name="answer" required>
                 <span>${quizQuestions[questionArrNum].options[0]}</span>
             </label>
-            <label>
+            <label for="answer">
                 <input type="radio" value="${quizQuestions[questionArrNum].options[1]}" name="answer" required>
                 <span>${quizQuestions[questionArrNum].options[1]}</span>
             </label>
-            <label>
+            <label for="answer">
                 <input type="radio" value="${quizQuestions[questionArrNum].options[2]}" name="answer" required>
                 <span>${quizQuestions[questionArrNum].options[2]}</span>
             </label>
-            <label>
+            <label for="answer">
                 <input type="radio" value="${quizQuestions[questionArrNum].options[3]}" name="answer" required>
                 <span>${quizQuestions[questionArrNum].options[3]}</span>
             </label>
@@ -168,6 +168,7 @@ function showFinalResults() {
 }
 
 function resetQuiz() {
+    $('.js-form').empty();
     $('.js-main').on('click', '.js-reset-button', function () {
         questionCount = 1;
         scoreCount = 0;
