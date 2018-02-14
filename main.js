@@ -43,7 +43,7 @@ let scoreCount = 0;
 
 function getQuizReady() {
     renderScoreCounter();
-    $('.js-main').empty();
+    $('.js-start-box').empty();
     loadQuestion(questionCount);
 }
 
@@ -119,26 +119,26 @@ function checkQuestionAnswer(givenAnswer) {
 
 function displayCorrectAnswer(isCorrect, correctAnswer) {
     $('.js-form').empty();
-    $('.js-main').empty();
+    $('.js-start-box').empty();
     if(isCorrect) {
-        $('.js-main').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
+        $('.js-start-box').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
         scoreCount++;
     } else {
-        $('.js-main').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
+        $('.js-start-box').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
     }
 
     if(questionCount !== 7){
-        $('.js-main').append('<button type="submit" class="js-next-question">Next question</button>');
+        $('.js-start-box').append('<button type="submit" class="js-next-question">Next question</button>');
     } else {
         showFinalResults();
     }
 }
     
 function nextQuestionClicked() {
-    $('.js-main').on('click', '.js-next-question', function () {
+    $('.js-start-box').on('click', '.js-next-question', function () {
         event.preventDefault();
         questionCount++;
-        $('.js-main').empty();
+        $('.js-start-box').empty();
         loadQuestion(questionCount);
     });
 }
@@ -154,7 +154,7 @@ function showFinalResults() {
     } else if (scoreCount <= 2) {
         message = 'Not bad champ! Try taking the quiz again and seeing how you do!';
     }
-    $('.js-main').append(`
+    $('.js-start-box').append(`
         <h2>You did it! You completed the quiz with a final score of ${scoreCount}</h2>
         <p>${message}</p>
         <button type='submit' class='js-reset-button'>Reset button</button>
@@ -164,7 +164,7 @@ function showFinalResults() {
 
 function resetQuiz() {
     $('.js-form').empty();
-    $('.js-main').on('click', '.js-reset-button', function () {
+    $('.js-start-box').on('click', '.js-reset-button', function () {
         questionCount = 1;
         scoreCount = 0;
         event.preventDefault;

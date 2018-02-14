@@ -1,6 +1,8 @@
 body {
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
+    margin: auto;
+    max-width: 425px;
 }
 
 h1 {
@@ -9,4 +11,27 @@ h1 {
 
 h2, h3, h4, h5, h6 {
     font-weight: 500;
+}
+
+header {
+    margin-top: 25px;
+    text-align: center;
+}
+
+header ul {
+    padding: 0;
+    text-align: center;
+}
+
+header ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.start-box {
+    text-align: center;
+}
+
+form fieldset {
+    display: flex;
 }
